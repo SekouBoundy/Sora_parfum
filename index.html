@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Élixir Parfums — Boutique Luxe</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌹</text></svg>" />
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">
+    Éli<span>xir</span>
+  </div>
+  <div class="nav-actions">
+    <div class="nav-search">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-input" placeholder="Rechercher un parfum..." oninput="handleSearch(this)" />
+    </div>
+    <button class="cart-btn" onclick="openCart()">
+      🛍️ Panier
+      <span class="cart-badge">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== TOAST ===== -->
+<div id="toast"></div>
+
+<!-- ===== OVERLAY ===== -->
+<div class="overlay" id="overlay"></div>
+
+<!-- ===== CART PANEL ===== -->
+<div class="cart-panel" id="cart-panel">
+  <div class="cart-header">
+    <h2>Mon Panier</h2>
+    <button class="close-btn" onclick="closeCart()">✕</button>
+  </div>
+  <div id="cart-items"></div>
+  <div id="cart-total-section" style="display:none">
+    <div class="total-row">
+      <span class="total-label">Total</span>
+      <span id="cart-total">€0.00</span>
+    </div>
+    <button class="btn-primary" style="width:100%" onclick="goToCheckout()">
+      Passer la commande →
+    </button>
+  </div>
+</div>
+
+<!-- ===== PAGE: HOME ===== -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">✦ Collection Exclusive 2025</p>
+      <h1>L'art du<br/><em>parfum</em> rare</h1>
+      <p class="hero-sub">Découvrez notre sélection de fragrances d'exception, conçues pour les âmes qui refusent l'ordinaire.</p>
+      <div class="hero-cta">
+        <button class="btn-primary" onclick="showPage('catalog')">
+          Explorer la collection
+        </button>
+        <button class="btn-ghost" onclick="showPage('catalog')">
+          Voir les nouveautés
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item"><h3>48+</h3><p>Fragrances</p></div>
+        <div class="stat-item"><h3>12</h3><p>Maisons</p></div>
+        <div class="stat-item"><h3>100%</h3><p>Authentique</p></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-circle">
+        <span class="hero-big-emoji">🌹</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATALOG ON HOME PAGE -->
+  <section class="catalog-section" id="home-catalog">
+    <div class="section-header">
+      <h2 class="section-title">Nos <em>Fragrances</em></h2>
+      <div class="filters">
+        <button class="filter-btn active" data-filter="Tous">Tous</button>
+        <button class="filter-btn" data-filter="Oriental">Oriental</button>
+        <button class="filter-btn" data-filter="Floral">Floral</button>
+        <button class="filter-btn" data-filter="Boisé">Boisé</button>
+        <button class="filter-btn" data-filter="Frais">Frais</button>
+      </div>
+    </div>
+    <div class="products-grid" id="products-grid"></div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Élixir Parfums</div>
+    <p>© 2025 Élixir Parfums. Tous droits réservés.</p>
+    <p>🔒 Paiement 100% sécurisé</p>
+  </footer>
+</div>
+
+<!-- ===== PAGE: CATALOG ===== -->
+<div class="page" id="page-catalog">
+  <section class="catalog-section">
+    <div class="section-header">
+      <h2 class="section-title">Toute la <em>Collection</em></h2>
+      <div class="filters">
+        <button class="filter-btn active" data-filter="Tous">Tous</button>
+        <button class="filter-btn" data-filter="Oriental">Oriental</button>
+        <button class="filter-btn" data-filter="Floral">Floral</button>
+        <button class="filter-btn" data-filter="Boisé">Boisé</button>
+        <button class="filter-btn" data-filter="Frais">Frais</button>
+      </div>
+    </div>
+    <div class="products-grid" id="products-grid-catalog"></div>
+  </section>
+  <footer>
+    <div class="footer-logo">Élixir Parfums</div>
+    <p>© 2025 Élixir Parfums. Tous droits réservés.</p>
+    <p>🔒 Paiement 100% sécurisé</p>
+  </footer>
+</div>
+
+<!-- ===== PAGE: PRODUCT DETAIL ===== -->
+<div class="page" id="page-detail">
+  <div class="detail-page">
+    <button class="back-btn" onclick="history.back(); showPage('home')">← Retour</button>
+    <div class="detail-grid">
+      <div class="detail-visual" id="detail-visual">
+        <span id="detail-emoji" style="font-size:9rem"></span>
+      </div>
+      <div class="detail-info">
+        <span class="detail-tag" id="detail-tag"></span>
+        <p id="detail-brand"></p>
+        <h1 id="detail-name"></h1>
+        <div class="detail-meta">
+          <span class="scent-badge" id="detail-scent"></span>
+          <span class="product-ml" id="detail-ml"></span>
+        </div>
+        <p class="detail-description" id="detail-description"></p>
+        <div>
+          <p class="notes-label">Notes olfactives</p>
+          <p class="notes-value" id="detail-notes"></p>
+        </div>
+        <p id="detail-price"></p>
+        <div class="detail-actions">
+          <button class="btn-primary" onclick="addToCart(currentProduct.id); openCart()">
+            🛍️ Ajouter au panier
+          </button>
+          <button class="btn-ghost" onclick="showPage('home')">Continuer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAGE: CHECKOUT ===== -->
+<div class="page" id="page-checkout">
+  <div class="checkout-page">
+    <button class="back-btn" onclick="openCart()">← Retour au panier</button>
+    <h1>Finaliser la <em style="font-style:italic;color:var(--gold)">commande</em></h1>
+    <p class="checkout-sub">Vos informations sont sécurisées et cryptées.</p>
+
+    <div class="checkout-grid">
+      <!-- LEFT: FORMS -->
+      <div>
+        <!-- CLIENT INFO -->
+        <div class="form-section">
+          <h3>Vos coordonnées</h3>
+          <div class="form-group">
+            <label>Nom complet</label>
+            <input type="text" id="client-name" placeholder="Jean Dupont" />
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="client-email" placeholder="jean@email.com" />
+          </div>
+          <div class="form-group">
+            <label>Adresse de livraison</label>
+            <input type="text" id="client-address" placeholder="123 Rue de la Paix, Paris" />
+          </div>
+        </div>
+
+        <!-- CARD -->
+        <div class="form-section" style="margin-top:28px">
+          <h3>💳 Paiement par carte</h3>
+
+          <!-- CARD VISUAL -->
+          <div class="card-preview">
+            <div class="card-chip">💳</div>
+            <div class="card-number-display" id="preview-number">•••• •••• •••• ••••</div>
+            <div class="card-meta">
+              <span id="preview-name">VOTRE NOM</span>
+              <span id="preview-expiry">MM/AA</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Nom sur la carte</label>
+            <input type="text" id="card-name" placeholder="JEAN DUPONT"
+              oninput="document.getElementById('preview-name').textContent = this.value.toUpperCase() || 'VOTRE NOM'" />
+          </div>
+          <div class="form-group">
+            <label>Numéro de carte</label>
+            <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19"
+              oninput="formatCardNumber(this); document.getElementById('preview-number').textContent = this.value || '•••• •••• •••• ••••'" />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Date d'expiration</label>
+              <input type="text" id="card-expiry" placeholder="MM/AA" maxlength="5"
+                oninput="formatExpiry(this); document.getElementById('preview-expiry').textContent = this.value || 'MM/AA'" />
+            </div>
+            <div class="form-group">
+              <label>CVV</label>
+              <input type="text" id="card-cvv" placeholder="•••" maxlength="3"
+                oninput="formatCVV(this)" />
+            </div>
+          </div>
+
+          <div id="payment-error"></div>
+
+          <div class="pay-action">
+            <button class="btn-primary" id="pay-btn" onclick="processPayment()">
+              🔒 Payer maintenant
+            </button>
+          </div>
+          <div class="secure-badge">
+            🔒 Cryptage SSL 256-bit — Visa, Mastercard, Amex acceptés
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: ORDER SUMMARY -->
+      <div class="order-summary">
+        <h3>Récapitulatif</h3>
+        <div id="checkout-items"></div>
+        <div class="summary-total">
+          <span>Total</span>
+          <span id="checkout-total">€0.00</span>
+        </div>
+        <div class="secure-badge" style="margin-top:20px">
+          ✅ Livraison gratuite · Retour 30 jours
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAGE: CONFIRMATION ===== -->
+<div class="page" id="page-confirmation">
+  <div class="confirmation-page">
+    <div class="confirm-icon">✅</div>
+    <h1>Commande confirmée !</h1>
+    <p>Merci pour votre achat. Votre commande a été traitée avec succès et sera livrée sous 3-5 jours ouvrés.</p>
+    <p class="order-ref" id="order-ref"></p>
+    <p>Un email de confirmation vous sera envoyé prochainement.</p>
+    <button class="btn-primary" onclick="showPage('home')" style="margin-top:20px">
+      Retourner à la boutique
+    </button>
+  </div>
+</div>
+
+<!-- ===== SCRIPTS ===== -->
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/main.js"></script>
+<script>
+  // Generate order reference
+  function generateRef() {
+    return 'ELX-' + Math.random().toString(36).substring(2,8).toUpperCase();
+  }
+
+  // Patch processPayment to set order ref
+  const _orig = processPayment;
+  window.processPayment = function() {
+    _orig();
+    setTimeout(() => {
+      document.getElementById('order-ref').textContent = 'Référence : ' + generateRef();
+      document.getElementById('pay-btn').disabled = false;
+      document.getElementById('pay-btn').innerHTML = '🔒 Payer maintenant';
+    }, 2600);
+  };
+
+  // Handle search from navbar
+  function handleSearch(input) {
+    const q = input.value.toLowerCase();
+    if (q.length > 0) {
+      showPage('home');
+      const grid = document.getElementById('products-grid');
+      const filtered = products.filter(p =>
+        p.name.toLowerCase().includes(q) ||
+        p.brand.toLowerCase().includes(q) ||
+        p.notes.toLowerCase().includes(q) ||
+        p.scent.toLowerCase().includes(q)
+      );
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="no-results">Aucun résultat pour "<strong>${q}</strong>"</div>`;
+      } else {
+        grid.innerHTML = filtered.map(p => `
+          <div class="product-card" onclick="openProduct(${p.id})">
+            ${p.tag ? `<div class="product-tag" style="background:${getTagColor(p.tag)}">${p.tag}</div>` : ''}
+            <div class="product-visual" style="background: radial-gradient(circle at 40% 40%, ${p.color}30, ${p.color}05)">
+              <div class="product-emoji">${p.emoji}</div>
+              <div class="product-glow" style="background:${p.color}"></div>
+            </div>
+            <div class="product-info">
+              <span class="product-brand">${p.brand}</span>
+              <h3 class="product-name">${p.name}</h3>
+              <div class="product-meta">
+                <span class="scent-badge">${p.scent}</span>
+                <span class="product-ml">${p.ml}</span>
+              </div>
+              <p class="product-notes">${p.notes}</p>
+              <div class="product-footer">
+                <span class="product-price">€${p.price}</span>
+                <button class="add-btn" onclick="event.stopPropagation(); addToCart(${p.id})">
+                  <span>+</span> Ajouter
+                </button>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      }
+    } else {
+      renderProducts();
+    }
+  }
+</script>
+</body>
+</html>
