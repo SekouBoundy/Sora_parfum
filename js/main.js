@@ -41,6 +41,8 @@ function renderProducts(filter = 'Tous') {
     </div>
   `).join('');
   grid.innerHTML = html;
+  const gridCatalog = document.getElementById('products-grid-catalog');
+  if (gridCatalog) gridCatalog.innerHTML = html;
   lucide.createIcons();
 }
 
