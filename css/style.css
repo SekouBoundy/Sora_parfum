@@ -119,12 +119,67 @@ nav {
 
 /* ===== LIGHT MODE ===== */
 body.light {
-  --bg: #faf8f4;
-  --surface: #ffffff;
-  --surface2: #f0ece4;
-  --border: #e0d8cc;
-  --text: #1a1714;
-  --muted: #7a7060;
+  --bg: #f5f0e8;
+  --surface: #fdfaf5;
+  --surface2: #ede8df;
+  --border: #d8d0c4;
+  --gold: #a07828;
+  --gold-light: #c9a84c;
+  --text: #18140e;
+  --muted: #8c7f6e;
+}
+
+/* light mode specific overrides */
+body.light nav {
+  background: color-mix(in srgb, #f5f0e8 94%, transparent);
+  box-shadow: 0 1px 0 var(--border);
+}
+
+body.light .product-card {
+  background: var(--surface);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06), 0 0 0 1px var(--border);
+}
+
+body.light .hero-image-badge {
+  background: rgba(245,240,232,0.75);
+  border-color: rgba(160,120,40,0.3);
+  color: var(--gold);
+}
+
+body.light .hero::before {
+  background: radial-gradient(circle, #a0782818 0%, transparent 70%);
+}
+
+body.light .scent-badge {
+  background: var(--surface2);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+body.light .cart-panel {
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+}
+
+body.light .filter-btn {
+  background: var(--surface2);
+  border-color: var(--border);
+}
+
+body.light .filter-btn.active {
+  background: var(--gold);
+  color: #fff;
+  border-color: var(--gold);
+}
+
+body.light .btn-ghost {
+  color: var(--text);
+  border-color: var(--border);
+}
+
+body.light footer {
+  border-top: 1px solid var(--border);
+  background: var(--surface2);
 }
 
 /* ===== HERO ===== */
