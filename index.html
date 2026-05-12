@@ -3,24 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Élixir Parfums — Boutique Luxe</title>
+  <title>Sora Parfum — Boutique Luxe</title>
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌹</text></svg>" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 <body>
 
 <!-- ===== NAVBAR ===== -->
 <nav>
   <div class="nav-logo" onclick="showPage('home')">
-    Éli<span>xir</span>
+    Sora<span> Parfum</span>
   </div>
   <div class="nav-actions">
     <div class="nav-search">
-      <span class="search-icon">🔍</span>
+      <i data-lucide="search" class="search-icon"></i>
       <input type="text" id="search-input" placeholder="Rechercher un parfum..." oninput="handleSearch(this)" />
     </div>
+    <button class="toggle-btn" id="lang-toggle" onclick="toggleLang()" title="Switch language">FR</button>
+    <button class="toggle-btn" id="theme-toggle" onclick="toggleTheme()" title="Toggle theme">☀️</button>
     <button class="cart-btn" onclick="openCart()">
-      🛍️ Panier
+      <i data-lucide="shopping-bag"></i> <span data-i18n="cart">Panier</span>
       <span class="cart-badge">0</span>
     </button>
   </div>
@@ -35,8 +37,8 @@
 <!-- ===== CART PANEL ===== -->
 <div class="cart-panel" id="cart-panel">
   <div class="cart-header">
-    <h2>Mon Panier</h2>
-    <button class="close-btn" onclick="closeCart()">✕</button>
+    <h2 data-i18n="myCart">Mon Panier</h2>
+    <button class="close-btn" onclick="closeCart()"><i data-lucide="x"></i></button>
   </div>
   <div id="cart-items"></div>
   <div id="cart-total-section" style="display:none">
@@ -56,14 +58,14 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-content">
-      <p class="hero-eyebrow">✦ Collection Exclusive 2025</p>
-      <h1>L'art du<br/><em>parfum</em> rare</h1>
-      <p class="hero-sub">Découvrez notre sélection de fragrances d'exception, conçues pour les âmes qui refusent l'ordinaire.</p>
+      <p class="hero-eyebrow">✦ <span data-i18n="heroEyebrow">Collection Exclusive 2026</span></p>
+      <h1><span data-i18n="heroTitle">L'art du</span><br/><em data-i18n="heroTitleEm">parfum</em> <span data-i18n="heroTitleRare">rare</span></h1>
+      <p class="hero-sub" data-i18n="heroSub">Découvrez notre sélection de fragrances d'exception, conçues pour les âmes qui refusent l'ordinaire.</p>
       <div class="hero-cta">
-        <button class="btn-primary" onclick="showPage('catalog')">
+        <button class="btn-primary" onclick="showPage('catalog')" data-i18n="heroBtn1">
           Explorer la collection
         </button>
-        <button class="btn-ghost" onclick="showPage('catalog')">
+        <button class="btn-ghost" onclick="showPage('catalog')" data-i18n="heroBtn2">
           Voir les nouveautés
         </button>
       </div>
@@ -75,7 +77,7 @@
     </div>
     <div class="hero-visual">
       <div class="hero-circle">
-        <span class="hero-big-emoji">🌹</span>
+        <i data-lucide="sparkles" class="hero-big-icon"></i>
       </div>
     </div>
   </section>
@@ -83,7 +85,7 @@
   <!-- CATALOG ON HOME PAGE -->
   <section class="catalog-section" id="home-catalog">
     <div class="section-header">
-      <h2 class="section-title">Nos <em>Fragrances</em></h2>
+      <h2 class="section-title"><span data-i18n="ourFragrances">Nos</span> <em>Fragrances</em></h2>
       <div class="filters">
         <button class="filter-btn active" data-filter="Tous">Tous</button>
         <button class="filter-btn" data-filter="Oriental">Oriental</button>
@@ -97,9 +99,9 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-logo">Élixir Parfums</div>
-    <p>© 2025 Élixir Parfums. Tous droits réservés.</p>
-    <p>🔒 Paiement 100% sécurisé</p>
+    <div class="footer-logo">Sora Parfum</div>
+    <p>© 2026 Sora Parfum. <span data-i18n="rights">Tous droits réservés.</span></p>
+    <p><i data-lucide="lock"></i> Paiement 100% sécurisé</p>
   </footer>
 </div>
 
@@ -107,7 +109,7 @@
 <div class="page" id="page-catalog">
   <section class="catalog-section">
     <div class="section-header">
-      <h2 class="section-title">Toute la <em>Collection</em></h2>
+      <h2 class="section-title"><span data-i18n="allCollection">Toute la</span> <em>Collection</em></h2>
       <div class="filters">
         <button class="filter-btn active" data-filter="Tous">Tous</button>
         <button class="filter-btn" data-filter="Oriental">Oriental</button>
@@ -119,16 +121,16 @@
     <div class="products-grid" id="products-grid-catalog"></div>
   </section>
   <footer>
-    <div class="footer-logo">Élixir Parfums</div>
-    <p>© 2025 Élixir Parfums. Tous droits réservés.</p>
-    <p>🔒 Paiement 100% sécurisé</p>
+    <div class="footer-logo">Sora Parfum</div>
+    <p>© 2026 Sora Parfum. <span data-i18n="rights">Tous droits réservés.</span></p>
+    <p><i data-lucide="lock"></i> Paiement 100% sécurisé</p>
   </footer>
 </div>
 
 <!-- ===== PAGE: PRODUCT DETAIL ===== -->
 <div class="page" id="page-detail">
   <div class="detail-page">
-    <button class="back-btn" onclick="history.back(); showPage('home')">← Retour</button>
+    <button class="back-btn" onclick="history.back(); showPage('home')"><i data-lucide="arrow-left"></i> Retour</button>
     <div class="detail-grid">
       <div class="detail-visual" id="detail-visual">
         <span id="detail-emoji" style="font-size:9rem"></span>
@@ -149,7 +151,7 @@
         <p id="detail-price"></p>
         <div class="detail-actions">
           <button class="btn-primary" onclick="addToCart(currentProduct.id); openCart()">
-            🛍️ Ajouter au panier
+            <i data-lucide="shopping-bag"></i> Ajouter au panier
           </button>
           <button class="btn-ghost" onclick="showPage('home')">Continuer</button>
         </div>
@@ -161,7 +163,7 @@
 <!-- ===== PAGE: CHECKOUT ===== -->
 <div class="page" id="page-checkout">
   <div class="checkout-page">
-    <button class="back-btn" onclick="openCart()">← Retour au panier</button>
+    <button class="back-btn" onclick="openCart()"><i data-lucide="arrow-left"></i> Retour au panier</button>
     <h1>Finaliser la <em style="font-style:italic;color:var(--gold)">commande</em></h1>
     <p class="checkout-sub">Vos informations sont sécurisées et cryptées.</p>
 
@@ -187,11 +189,11 @@
 
         <!-- CARD -->
         <div class="form-section" style="margin-top:28px">
-          <h3>💳 Paiement par carte</h3>
+          <h3><i data-lucide="credit-card"></i> Paiement par carte</h3>
 
           <!-- CARD VISUAL -->
           <div class="card-preview">
-            <div class="card-chip">💳</div>
+            <div class="card-chip"><i data-lucide="credit-card"></i></div>
             <div class="card-number-display" id="preview-number">•••• •••• •••• ••••</div>
             <div class="card-meta">
               <span id="preview-name">VOTRE NOM</span>
@@ -226,11 +228,11 @@
 
           <div class="pay-action">
             <button class="btn-primary" id="pay-btn" onclick="processPayment()">
-              🔒 Payer maintenant
+              <i data-lucide="lock"></i> Payer maintenant
             </button>
           </div>
           <div class="secure-badge">
-            🔒 Cryptage SSL 256-bit — Visa, Mastercard, Amex acceptés
+            <i data-lucide="shield-check"></i> Cryptage SSL 256-bit — Visa, Mastercard, Amex acceptés
           </div>
         </div>
       </div>
@@ -244,7 +246,7 @@
           <span id="checkout-total">€0.00</span>
         </div>
         <div class="secure-badge" style="margin-top:20px">
-          ✅ Livraison gratuite · Retour 30 jours
+          <i data-lucide="package-check"></i> Livraison gratuite · Retour 30 jours
         </div>
       </div>
     </div>
@@ -254,7 +256,7 @@
 <!-- ===== PAGE: CONFIRMATION ===== -->
 <div class="page" id="page-confirmation">
   <div class="confirmation-page">
-    <div class="confirm-icon">✅</div>
+    <div class="confirm-icon"><i data-lucide="circle-check-big"></i></div>
     <h1>Commande confirmée !</h1>
     <p>Merci pour votre achat. Votre commande a été traitée avec succès et sera livrée sous 3-5 jours ouvrés.</p>
     <p class="order-ref" id="order-ref"></p>
@@ -264,6 +266,71 @@
     </button>
   </div>
 </div>
+
+<!-- ===== THEME & LANG ===== -->
+<script>
+  // ===== DARK / LIGHT MODE =====
+  function setThemeIcon(isLight) {
+    const btn = document.getElementById('theme-toggle');
+    btn.innerHTML = isLight
+      ? '<i data-lucide="moon"></i>'
+      : '<i data-lucide="sun"></i>';
+    lucide.createIcons({ nodes: [btn] });
+  }
+  function toggleTheme() {
+    const isLight = document.body.classList.toggle('light');
+    setThemeIcon(isLight);
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  }
+  if (localStorage.getItem('theme') === 'light') {
+    document.body.classList.add('light');
+    document.addEventListener('DOMContentLoaded', () => setThemeIcon(true));
+  }
+
+  // ===== FR / EN LANGUAGE =====
+  const translations = {
+    fr: {
+      cart: 'Panier', myCart: 'Mon Panier', rights: 'Tous droits réservés.',
+      heroEyebrow: 'Collection Exclusive 2026',
+      heroTitle: "L'art du", heroTitleEm: 'parfum', heroTitleRare: 'rare',
+      heroSub: "Découvrez notre sélection de fragrances d'exception, conçues pour les âmes qui refusent l'ordinaire.",
+      heroBtn1: 'Explorer la collection', heroBtn2: 'Voir les nouveautés',
+      ourFragrances: 'Nos', allCollection: 'Toute la',
+      searchPlaceholder: 'Rechercher un parfum...',
+    },
+    en: {
+      cart: 'Cart', myCart: 'My Cart', rights: 'All rights reserved.',
+      heroEyebrow: 'Exclusive Collection 2026',
+      heroTitle: 'The art of', heroTitleEm: 'rare', heroTitleRare: 'perfume',
+      heroSub: 'Discover our selection of exceptional fragrances, crafted for souls who refuse the ordinary.',
+      heroBtn1: 'Explore the collection', heroBtn2: 'See new arrivals',
+      ourFragrances: 'Our', allCollection: 'Full',
+      searchPlaceholder: 'Search a perfume...',
+    }
+  };
+
+  let currentLang = localStorage.getItem('lang') || 'fr';
+
+  function applyLang(lang) {
+    const t = translations[lang];
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.dataset.i18n;
+      if (t[key] !== undefined) el.textContent = t[key];
+    });
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) searchInput.placeholder = t.searchPlaceholder;
+    document.getElementById('lang-toggle').textContent = lang === 'fr' ? 'EN' : 'FR';
+    document.documentElement.lang = lang;
+  }
+
+  function toggleLang() {
+    currentLang = currentLang === 'fr' ? 'en' : 'fr';
+    localStorage.setItem('lang', currentLang);
+    applyLang(currentLang);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => { applyLang(currentLang); lucide.createIcons(); });
+</script>
 
 <!-- ===== SCRIPTS ===== -->
 <script src="js/products.js"></script>
@@ -282,7 +349,8 @@
     setTimeout(() => {
       document.getElementById('order-ref').textContent = 'Référence : ' + generateRef();
       document.getElementById('pay-btn').disabled = false;
-      document.getElementById('pay-btn').innerHTML = '🔒 Payer maintenant';
+      document.getElementById('pay-btn').innerHTML = '<i data-lucide="lock"></i> Payer maintenant';
+      lucide.createIcons();
     }, 2600);
   };
 
@@ -305,7 +373,7 @@
           <div class="product-card" onclick="openProduct(${p.id})">
             ${p.tag ? `<div class="product-tag" style="background:${getTagColor(p.tag)}">${p.tag}</div>` : ''}
             <div class="product-visual" style="background: radial-gradient(circle at 40% 40%, ${p.color}30, ${p.color}05)">
-              <div class="product-emoji">${p.emoji}</div>
+              ${p.image ? `<img class="product-img" src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="product-emoji" style="display:none">${p.emoji}</div>` : `<div class="product-emoji">${p.emoji}</div>`}
               <div class="product-glow" style="background:${p.color}"></div>
             </div>
             <div class="product-info">
@@ -319,12 +387,13 @@
               <div class="product-footer">
                 <span class="product-price">€${p.price}</span>
                 <button class="add-btn" onclick="event.stopPropagation(); addToCart(${p.id})">
-                  <span>+</span> Ajouter
+                  <i data-lucide="plus"></i> Ajouter
                 </button>
               </div>
             </div>
           </div>
         `).join('');
+        lucide.createIcons();
       }
     } else {
       renderProducts();

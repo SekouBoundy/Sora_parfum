@@ -10,7 +10,8 @@ const products = [
     tag: "Bestseller",
     description: "Un voyage olfactif profond et envoûtant. L'oud précieux se mêle à l'ambre doré pour créer une signature inoubliable.",
     color: "#8B5E3C",
-    emoji: "🖤"
+    emoji: "🖤",
+    image: "https://www.luxoforce.com/cdn/shop/products/secret-de-rochas-oud-mystere-100ml-eau-de-parfum-f.jpg?v=1612883427&width=990"
   },
   {
     id: 2,
@@ -23,7 +24,8 @@ const products = [
     tag: "Nouveau",
     description: "La quintessence de la féminité. Une rose enveloppée de jasmin délicat et de vanille crémeuse.",
     color: "#C2185B",
-    emoji: "🌹"
+    emoji: "🌹",
+    image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400&h=400&fit=crop&q=80"
   },
   {
     id: 3,
@@ -36,7 +38,8 @@ const products = [
     tag: "Premium",
     description: "Le santal le plus rare du monde sublimé par le cèdre noble. Un parfum pour les connaisseurs.",
     color: "#A0522D",
-    emoji: "✨"
+    emoji: "✨",
+    image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=400&h=400&fit=crop&q=80"
   },
   {
     id: 4,
@@ -49,7 +52,8 @@ const products = [
     tag: "",
     description: "Une explosion de fraîcheur méditerranéenne. La bergamote vive rencontre le néroli délicat.",
     color: "#F59E0B",
-    emoji: "🍋"
+    emoji: "🍋",
+    image: "https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=400&h=400&fit=crop&q=80"
   },
   {
     id: 5,
@@ -62,7 +66,8 @@ const products = [
     tag: "Exclusif",
     description: "Inspiré des nuits de Marrakech. La cardamome épicée s'entrelace avec la rose et l'oud mystérieux.",
     color: "#6B21A8",
-    emoji: "🌙"
+    emoji: "🌙",
+    image: "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=400&h=400&fit=crop&q=80"
   },
   {
     id: 6,
@@ -75,7 +80,8 @@ const products = [
     tag: "",
     description: "L'essence de l'océan capturée en flacon. Pur, lumineux et infiniment élégant.",
     color: "#0EA5E9",
-    emoji: "💧"
+    emoji: "💧",
+    image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=400&h=400&fit=crop&q=80"
   },
   {
     id: 7,
@@ -88,7 +94,8 @@ const products = [
     tag: "Exclusif",
     description: "Pour les âmes audacieuses. Un cuir sophistiqué enveloppé d'ambre sombre et d'une légère touche fumée.",
     color: "#1C1C1C",
-    emoji: "🔥"
+    emoji: "🔥",
+    image: "https://images.unsplash.com/photo-1590736704728-f4730bb30770?w=400&h=400&fit=crop&q=80"
   },
   {
     id: 8,
@@ -101,6 +108,7 @@ const products = [
     tag: "Nouveau",
     description: "La fraîcheur printanière en bouteille. La pivoine lumineuse danse avec le muguet délicat.",
     color: "#F9A8D4",
-    emoji: "🌸"
+    emoji: "🌸",
+    image: "https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=400&h=400&fit=crop&q=80"
   }
 ];

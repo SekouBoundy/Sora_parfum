@@ -43,7 +43,8 @@ function renderCartItems() {
   const container = document.getElementById('cart-items');
   if (!container) return;
   if (cart.length === 0) {
-    container.innerHTML = `<div class="cart-empty"><span>🛍️</span><p>Votre panier est vide</p></div>`;
+    container.innerHTML = `<div class="cart-empty"><i data-lucide="shopping-bag"></i><p>Votre panier est vide</p></div>`;
+    lucide.createIcons();
     document.getElementById('cart-total-section').style.display = 'none';
     return;
   }
@@ -51,7 +52,7 @@ function renderCartItems() {
   container.innerHTML = cart.map(item => `
     <div class="cart-item" data-id="${item.id}">
       <div class="cart-item-icon" style="background:${item.color}20; color:${item.color}">
-        ${item.emoji}
+        ${item.image ? `<img src="${item.image}" alt="${item.name}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;" />` : item.emoji}
       </div>
       <div class="cart-item-info">
         <h4>${item.name}</h4>
@@ -62,16 +63,18 @@ function renderCartItems() {
         <button onclick="changeQty(${item.id}, -1)" class="qty-btn">−</button>
         <span class="qty-display">${item.qty}</span>
         <button onclick="changeQty(${item.id}, 1)" class="qty-btn">+</button>
-        <button onclick="removeFromCart(${item.id})" class="remove-btn">🗑️</button>
+        <button onclick="removeFromCart(${item.id})" class="remove-btn"><i data-lucide="trash-2"></i></button>
       </div>
     </div>
   `).join('');
   document.getElementById('cart-total').textContent = `€${getTotal().toFixed(2)}`;
+  lucide.createIcons();
 }
 
 function showAddedToast(name) {
   const toast = document.getElementById('toast');
-  toast.textContent = `✅ ${name} ajouté au panier`;
+  toast.innerHTML = `<i data-lucide="circle-check"></i> ${name} ajouté au panier`;
+  lucide.createIcons({ nodes: [toast] });
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 2500);
 }

@@ -14,11 +14,13 @@ function renderProducts(filter = 'Tous') {
   const grid = document.getElementById('products-grid');
   const filtered = filter === 'Tous' ? products : products.filter(p => p.scent === filter);
 
-  grid.innerHTML = filtered.map(p => `
+  const html = filtered.map(p => `
     <div class="product-card" onclick="openProduct(${p.id})">
       ${p.tag ? `<div class="product-tag" style="background:${getTagColor(p.tag)}">${p.tag}</div>` : ''}
       <div class="product-visual" style="background: radial-gradient(circle at 40% 40%, ${p.color}30, ${p.color}05)">
-        <div class="product-emoji">${p.emoji}</div>
+        ${p.image
+          ? `<img class="product-img" src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="product-emoji" style="display:none">${p.emoji}</div>`
+          : `<div class="product-emoji">${p.emoji}</div>`}
         <div class="product-glow" style="background:${p.color}"></div>
       </div>
       <div class="product-info">
@@ -32,12 +34,14 @@ function renderProducts(filter = 'Tous') {
         <div class="product-footer">
           <span class="product-price">€${p.price}</span>
           <button class="add-btn" onclick="event.stopPropagation(); addToCart(${p.id})">
-            <span>+</span> Ajouter
+            <i data-lucide="plus"></i> Ajouter
           </button>
         </div>
       </div>
     </div>
   `).join('');
+  grid.innerHTML = html;
+  lucide.createIcons();
 }
 
 function getTagColor(tag) {
@@ -58,9 +62,15 @@ function setFilter(filter) {
 function openProduct(id) {
   currentProduct = products.find(p => p.id === id);
   const p = currentProduct;
-  document.getElementById('detail-emoji').textContent = p.emoji;
-  document.getElementById('detail-emoji').style.color = p.color;
-  document.getElementById('detail-visual').style.background = `radial-gradient(circle at 40% 40%, ${p.color}40, ${p.color}08)`;
+  const detailVisual = document.getElementById('detail-visual');
+  detailVisual.style.background = `radial-gradient(circle at 40% 40%, ${p.color}40, ${p.color}08)`;
+  const detailEmoji = document.getElementById('detail-emoji');
+  if (p.image) {
+    detailVisual.innerHTML = `<img class="detail-img" src="${p.image}" alt="${p.name}" onerror="this.outerHTML='<span id=detail-emoji style=font-size:9rem;color:${p.color}>${p.emoji}</span>'" /><span id="detail-emoji" style="display:none"></span>`;
+  } else {
+    detailEmoji.textContent = p.emoji;
+    detailEmoji.style.color = p.color;
+  }
   document.getElementById('detail-tag').textContent = p.tag || '';
   document.getElementById('detail-tag').style.display = p.tag ? 'inline-block' : 'none';
   document.getElementById('detail-tag').style.background = getTagColor(p.tag);
@@ -119,6 +129,7 @@ function processPayment() {
   // Simulate payment
   document.getElementById('pay-btn').disabled = true;
   document.getElementById('pay-btn').innerHTML = `<span class="spinner"></span> Traitement en cours...`;
+  lucide.createIcons();
 
   setTimeout(() => {
     showPage('confirmation');
@@ -136,6 +147,7 @@ function showError(msg) {
 
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
+  lucide.createIcons();
   renderProducts();
 
   // Filter buttons
@@ -165,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="product-card" onclick="openProduct(${p.id})">
             ${p.tag ? `<div class="product-tag" style="background:${getTagColor(p.tag)}">${p.tag}</div>` : ''}
             <div class="product-visual" style="background: radial-gradient(circle at 40% 40%, ${p.color}30, ${p.color}05)">
-              <div class="product-emoji">${p.emoji}</div>
+              ${p.image ? `<img class="product-img" src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="product-emoji" style="display:none">${p.emoji}</div>` : `<div class="product-emoji">${p.emoji}</div>`}
             </div>
             <div class="product-info">
               <span class="product-brand">${p.brand}</span>
@@ -178,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <div class="product-footer">
                 <span class="product-price">€${p.price}</span>
                 <button class="add-btn" onclick="event.stopPropagation(); addToCart(${p.id})">
-                  <span>+</span> Ajouter
+                  <i data-lucide="plus"></i> Ajouter
                 </button>
               </div>
             </div>
