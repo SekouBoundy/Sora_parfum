@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Produit — Sora Parfum</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+
+<script src="js/navbar.js"></script>
+
+<div class="detail-page">
+  <button class="back-btn" onclick="history.back()">
+    <i data-lucide="arrow-left"></i> Retour
+  </button>
+  <div class="detail-grid" id="detail-grid">
+    <!-- filled by JS -->
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-logo">Sora Parfum</div>
+  <p>© 2026 Sora Parfum. <span data-i18n="rights">Tous droits réservés.</span></p>
+  <p><i data-lucide="lock"></i> Paiement 100% sécurisé</p>
+</footer>
+
+<script src="js/products.js"></script>
+<script src="js/shared.js"></script>
+<script src="js/cart.js"></script>
+<script>
+  function getTagColor(tag) {
+    const colors = { 'Bestseller': '#f59e0b', 'Nouveau': '#10b981', 'Premium': '#c084fc', 'Exclusif': '#f43f5e' };
+    return colors[tag] || '#6b7280';
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const id = parseInt(params.get('id'));
+    const p = products.find(pr => pr.id === id);
+
+    if (!p) {
+      document.getElementById('detail-grid').innerHTML = `
+        <div style="padding:60px;text-align:center;color:var(--muted)">
+          <p>Produit introuvable.</p>
+          <button class="btn-primary" style="margin-top:20px" onclick="window.location.href='catalog.html'">
+            Retour à la collection
+          </button>
+        </div>`;
+      lucide.createIcons();
+      return;
+    }
+
+    document.title = `${p.name} — Sora Parfum`;
+
+    document.getElementById('detail-grid').innerHTML = `
+      <div class="detail-visual" id="detail-visual"
+        style="background: radial-gradient(circle at 40% 40%, ${p.color}40, ${p.color}08)">
+        ${p.image
+          ? `<img class="detail-img" src="${p.image}" alt="${p.name}" onerror="this.outerHTML='<span style=font-size:9rem;color:${p.color}>${p.emoji}</span>'" />`
+          : `<span style="font-size:9rem;color:${p.color}">${p.emoji}</span>`}
+      </div>
+      <div class="detail-info">
+        ${p.tag ? `<span class="detail-tag" style="background:${getTagColor(p.tag)};display:inline-block">${p.tag}</span>` : ''}
+        <p id="detail-brand">${p.brand}</p>
+        <h1>${p.name}</h1>
+        <div class="detail-meta">
+          <span class="scent-badge">${p.scent}</span>
+          <span class="product-ml">${p.ml}</span>
+        </div>
+        <p class="detail-description">${p.description}</p>
+        <div>
+          <p class="notes-label">Notes olfactives</p>
+          <p class="notes-value">${p.notes}</p>
+        </div>
+        <p class="detail-price">€${p.price}</p>
+        <div class="detail-actions">
+          <button class="btn-primary" id="add-btn" onclick="addToCart(${p.id}); openCart()">
+            <i data-lucide="shopping-bag"></i> Ajouter au panier
+          </button>
+          <button class="btn-ghost" onclick="window.location.href='catalog.html'">Continuer</button>
+        </div>
+      </div>
+    `;
+    lucide.createIcons();
+  });
+</script>
+</body>
+</html>

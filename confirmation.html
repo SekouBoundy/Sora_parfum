@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Commande confirmée — Sora Parfum</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+
+<script src="js/navbar.js"></script>
+
+<div class="confirmation-page">
+  <div class="confirm-icon"><i data-lucide="circle-check-big"></i></div>
+  <h1>Commande confirmée !</h1>
+  <p>Merci pour votre achat. Votre commande a été traitée avec succès et sera livrée sous 3-5 jours ouvrés.</p>
+  <p class="order-ref" id="order-ref"></p>
+  <p>Un email de confirmation vous sera envoyé prochainement.</p>
+  <button class="btn-primary" onclick="window.location.href='index.html'" style="margin-top:20px">
+    Retourner à la boutique
+  </button>
+</div>
+
+<footer>
+  <div class="footer-logo">Sora Parfum</div>
+  <p>© 2026 Sora Parfum. <span data-i18n="rights">Tous droits réservés.</span></p>
+  <p><i data-lucide="lock"></i> Paiement 100% sécurisé</p>
+</footer>
+
+<script src="js/shared.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const ref = localStorage.getItem('orderRef');
+    if (ref) {
+      document.getElementById('order-ref').textContent = 'Référence : ' + ref;
+      localStorage.removeItem('orderRef');
+    }
+  });
+</script>
+</body>
+</html>

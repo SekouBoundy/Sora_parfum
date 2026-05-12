@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Commande — Sora Parfum</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+
+<script src="js/navbar.js"></script>
+
+<div class="checkout-page">
+  <button class="back-btn" onclick="history.back()">
+    <i data-lucide="arrow-left"></i> Retour au panier
+  </button>
+  <h1>Finaliser la <em style="font-style:italic;color:var(--gold)">commande</em></h1>
+  <p class="checkout-sub">Vos informations sont sécurisées et cryptées.</p>
+
+  <div class="checkout-grid">
+    <!-- LEFT: FORMS -->
+    <div>
+      <div class="form-section">
+        <h3>Vos coordonnées</h3>
+        <div class="form-group">
+          <label>Nom complet</label>
+          <input type="text" id="client-name" placeholder="Jean Dupont" />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="client-email" placeholder="jean@email.com" />
+        </div>
+        <div class="form-group">
+          <label>Adresse de livraison</label>
+          <input type="text" id="client-address" placeholder="123 Rue de la Paix, Paris" />
+        </div>
+      </div>
+
+      <div class="form-section" style="margin-top:28px">
+        <h3><i data-lucide="credit-card"></i> Paiement par carte</h3>
+
+        <div class="card-preview">
+          <div class="card-chip"><i data-lucide="credit-card"></i></div>
+          <div class="card-number-display" id="preview-number">•••• •••• •••• ••••</div>
+          <div class="card-meta">
+            <span id="preview-name">VOTRE NOM</span>
+            <span id="preview-expiry">MM/AA</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Nom sur la carte</label>
+          <input type="text" id="card-name" placeholder="JEAN DUPONT"
+            oninput="document.getElementById('preview-name').textContent = this.value.toUpperCase() || 'VOTRE NOM'" />
+        </div>
+        <div class="form-group">
+          <label>Numéro de carte</label>
+          <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19"
+            oninput="formatCardNumber(this); document.getElementById('preview-number').textContent = this.value || '•••• •••• •••• ••••'" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Date d'expiration</label>
+            <input type="text" id="card-expiry" placeholder="MM/AA" maxlength="5"
+              oninput="formatExpiry(this); document.getElementById('preview-expiry').textContent = this.value || 'MM/AA'" />
+          </div>
+          <div class="form-group">
+            <label>CVV</label>
+            <input type="text" id="card-cvv" placeholder="•••" maxlength="3"
+              oninput="formatCVV(this)" />
+          </div>
+        </div>
+
+        <div id="payment-error" class="payment-error"></div>
+
+        <div class="pay-action">
+          <button class="btn-primary" id="pay-btn" onclick="processPayment()">
+            <i data-lucide="lock"></i> Payer maintenant
+          </button>
+        </div>
+        <div class="secure-badge">
+          <i data-lucide="shield-check"></i> Cryptage SSL 256-bit — Visa, Mastercard, Amex acceptés
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: ORDER SUMMARY -->
+    <div class="order-summary">
+      <h3>Récapitulatif</h3>
+      <div id="checkout-items"></div>
+      <div class="summary-total">
+        <span>Total</span>
+        <span id="checkout-total">€0.00</span>
+      </div>
+      <div class="secure-badge" style="margin-top:20px">
+        <i data-lucide="package-check"></i> Livraison gratuite · Retour 30 jours
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">Sora Parfum</div>
+  <p>© 2026 Sora Parfum. <span data-i18n="rights">Tous droits réservés.</span></p>
+  <p><i data-lucide="lock"></i> Paiement 100% sécurisé</p>
+</footer>
+
+<script src="js/shared.js"></script>
+<script>
+  function renderSummary() {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    if (cart.length === 0) { window.location.href = 'index.html'; return; }
+    const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    document.getElementById('checkout-items').innerHTML = cart.map(i => `
+      <div class="summary-item">
+        <div class="summary-item-left">
+          <div class="summary-item-thumb" style="background:${i.color}20">
+            ${i.image
+              ? `<img src="${i.image}" alt="${i.name}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;" />`
+              : `<span style="font-size:1.4rem">${i.emoji}</span>`}
+          </div>
+          <div>
+            <span class="summary-item-name">${i.name}</span>
+            <span class="summary-item-qty">× ${i.qty}</span>
+          </div>
+        </div>
+        <span class="summary-item-price">€${(i.price * i.qty).toFixed(2)}</span>
+      </div>
+    `).join('');
+    document.getElementById('checkout-total').textContent = `€${total.toFixed(2)}`;
+  }
+
+  function formatCardNumber(input) {
+    let val = input.value.replace(/\D/g, '').substring(0, 16);
+    input.value = val.replace(/(.{4})/g, '$1 ').trim();
+  }
+  function formatExpiry(input) {
+    let val = input.value.replace(/\D/g, '').substring(0, 4);
+    if (val.length >= 2) val = val.substring(0, 2) + '/' + val.substring(2);
+    input.value = val;
+  }
+  function formatCVV(input) {
+    input.value = input.value.replace(/\D/g, '').substring(0, 3);
+  }
+
+  function showError(msg) {
+    const err = document.getElementById('payment-error');
+    err.textContent = msg;
+    err.style.display = 'block';
+    setTimeout(() => err.style.display = 'none', 3000);
+  }
+
+  function generateRef() {
+    return 'SOR-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+  }
+
+  function processPayment() {
+    const name = document.getElementById('card-name').value.trim();
+    const number = document.getElementById('card-number').value.replace(/\s/g, '');
+    const expiry = document.getElementById('card-expiry').value;
+    const cvv = document.getElementById('card-cvv').value;
+    const email = document.getElementById('client-email').value.trim();
+    const clientName = document.getElementById('client-name').value.trim();
+
+    if (!clientName || !email || !name || number.length < 16 || expiry.length < 5 || cvv.length < 3) {
+      showError('Veuillez remplir tous les champs correctement.');
+      return;
+    }
+
+    const btn = document.getElementById('pay-btn');
+    btn.disabled = true;
+    btn.innerHTML = `<span class="spinner"></span> Traitement en cours...`;
+
+    setTimeout(() => {
+      const ref = generateRef();
+      localStorage.setItem('orderRef', ref);
+      localStorage.removeItem('cart');
+      window.location.href = 'confirmation.html';
+    }, 2500);
+  }
+
+  document.addEventListener('DOMContentLoaded', renderSummary);
+</script>
+</body>
+</html>

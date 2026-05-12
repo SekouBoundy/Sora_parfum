@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sora Parfum — Boutique Luxe</title>
+  <title>Collection — Sora Parfum</title>
   <link rel="stylesheet" href="css/style.css" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
@@ -11,41 +11,10 @@
 
 <script src="js/navbar.js"></script>
 
-<!-- ===== HERO ===== -->
-<section class="hero">
-  <div class="hero-content">
-    <p class="hero-eyebrow">✦ <span data-i18n="heroEyebrow">Collection Exclusive 2026</span></p>
-    <h1><span data-i18n="heroTitle">L'art du</span><br/><em data-i18n="heroTitleEm">parfum</em> <span data-i18n="heroTitleRare">rare</span></h1>
-    <p class="hero-sub" data-i18n="heroSub">Découvrez notre sélection de fragrances d'exception, conçues pour les âmes qui refusent l'ordinaire.</p>
-    <div class="hero-cta">
-      <button class="btn-primary" onclick="window.location.href='catalog.html'" data-i18n="heroBtn1">Explorer la collection</button>
-      <button class="btn-ghost" onclick="window.location.href='catalog.html'" data-i18n="heroBtn2">Voir les nouveautés</button>
-    </div>
-    <div class="hero-stats">
-      <div class="stat-item"><h3>48+</h3><p>Fragrances</p></div>
-      <div class="stat-item"><h3>12</h3><p>Maisons</p></div>
-      <div class="stat-item"><h3>100%</h3><p>Authentique</p></div>
-    </div>
-  </div>
-  <div class="hero-visual">
-    <div class="hero-image-frame">
-      <img
-        src="https://static.vecteezy.com/system/resources/thumbnails/057/278/453/small_2x/mockup-clear-limpid-glass-packaging-perfume-bottle-in-black-fabric-photo.jpg"
-        alt="Sora Parfum"
-        class="hero-img"
-      />
-      <div class="hero-image-badge">
-        <i data-lucide="sparkles"></i>
-        <span>Collection 2026</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== PRODUCTS PREVIEW ===== -->
+<!-- ===== CATALOG ===== -->
 <section class="catalog-section">
   <div class="section-header">
-    <h2 class="section-title"><span data-i18n="ourFragrances">Nos</span> <em>Fragrances</em></h2>
+    <h2 class="section-title"><span data-i18n="allCollection">Toute la</span> <em>Collection</em></h2>
     <div class="filters">
       <button class="filter-btn active" data-filter="Tous">Tous</button>
       <button class="filter-btn" data-filter="Oriental">Oriental</button>
@@ -55,11 +24,7 @@
     </div>
   </div>
   <div class="products-grid" id="products-grid"></div>
-  <div style="text-align:center; margin-top:40px">
-    <button class="btn-ghost" onclick="window.location.href='catalog.html'">
-      Voir toute la collection <i data-lucide="arrow-right"></i>
-    </button>
-  </div>
+  <div id="no-results" style="display:none" class="no-results"></div>
 </section>
 
 <!-- ===== FOOTER ===== -->
@@ -80,9 +45,29 @@
     return colors[tag] || '#6b7280';
   }
 
-  function renderProducts(filter = 'Tous') {
+  function renderProducts(filter = 'Tous', searchQuery = '') {
     const grid = document.getElementById('products-grid');
-    const filtered = filter === 'Tous' ? products : products.filter(p => p.scent === filter);
+    const noResults = document.getElementById('no-results');
+    let filtered = filter === 'Tous' ? products : products.filter(p => p.scent === filter);
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      filtered = filtered.filter(p =>
+        p.name.toLowerCase().includes(q) ||
+        p.brand.toLowerCase().includes(q) ||
+        p.notes.toLowerCase().includes(q) ||
+        p.scent.toLowerCase().includes(q)
+      );
+    }
+
+    if (filtered.length === 0) {
+      grid.innerHTML = '';
+      noResults.style.display = 'block';
+      noResults.innerHTML = `Aucun résultat pour "<strong>${searchQuery || filter}</strong>"`;
+      lucide.createIcons();
+      return;
+    }
+
+    noResults.style.display = 'none';
     grid.innerHTML = filtered.map(p => `
       <div class="product-card" onclick="window.location.href='product.html?id=${p.id}'">
         ${p.tag ? `<div class="product-tag" style="background:${getTagColor(p.tag)}">${p.tag}</div>` : ''}
@@ -114,18 +99,39 @@
 
   function handleSearch(input) {
     const q = input.value.trim();
-    if (q.length > 0) window.location.href = `catalog.html?q=${encodeURIComponent(q)}`;
+    // sync both inputs
+    const other = input.id === 'search-input' ? document.getElementById('search-input-mobile') : document.getElementById('search-input');
+    if (other) other.value = input.value;
+    renderProducts(currentFilter, q);
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    renderProducts();
+    // Read URL query param
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get('q') || '';
+    if (q) {
+      const si = document.getElementById('search-input');
+      const sm = document.getElementById('search-input-mobile');
+      if (si) si.value = q;
+      if (sm) sm.value = q;
+    }
+    renderProducts(currentFilter, q);
+
+    // Wire filter buttons
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         currentFilter = btn.dataset.filter;
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b === btn));
-        renderProducts(currentFilter);
+        const searchVal = document.getElementById('search-input')?.value || '';
+        renderProducts(currentFilter, searchVal);
       });
     });
+
+    // Wire desktop search on catalog page directly
+    const si = document.getElementById('search-input');
+    if (si) si.addEventListener('input', e => handleSearch(e.target));
+    const sm = document.getElementById('search-input-mobile');
+    if (sm) sm.addEventListener('input', e => handleSearch(e.target));
   });
 </script>
 </body>

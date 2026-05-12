@@ -3,15 +3,21 @@
 ## 📁 Structure du projet
 
 ```
-parfumerie/
-├── index.html          ← Page principale
+Sora parfum/
+├── index.html          ← Home (hero + product preview)
+├── catalog.html        ← Full collection + search + filters
+├── product.html        ← Product detail (reads ?id=X from URL)
+├── checkout.html       ← Payment form
+├── confirmation.html   ← Order success
 ├── css/
-│   └── style.css       ← Tous les styles
-├── js/
-│   ├── products.js     ← Données des produits
-│   ├── cart.js         ← Gestion du panier
-│   └── main.js         ← Logique principale
-└── README.md
+│   └── style.css
+└── js/
+    ├── products.js     ← Product data (unchanged)
+    ├── shared.js       ← Theme, lang, cart, toast (loaded on every page)
+    ├── navbar.js       ← Injects navbar + cart panel into every page
+    ├── cart.js         ← addToCart() wrapper using localStorage
+    └── main.js         ← Empty (no longer needed)
+
 ```
 
 ---
