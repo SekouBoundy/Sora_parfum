@@ -1,54 +1,53 @@
-"# Sora_parfum" 
+# Sora Parfum
 
-## 📁 Structure du projet
+Live site: [https://sora-parfum.vercel.app](https://sora-parfum.vercel.app)
+
+## Project Structure
 
 ```
 Sora parfum/
 ├── index.html          ← Home (hero + product preview)
 ├── catalog.html        ← Full collection + search + filters
 ├── product.html        ← Product detail (reads ?id=X from URL)
+├── login.html          ← Login page
 ├── checkout.html       ← Payment form
 ├── confirmation.html   ← Order success
 ├── css/
 │   └── style.css
 └── js/
-    ├── products.js     ← Product data (unchanged)
+    ├── products.js     ← Product data
     ├── shared.js       ← Theme, lang, cart, toast (loaded on every page)
     ├── navbar.js       ← Injects navbar + cart panel into every page
-    ├── cart.js         ← addToCart() wrapper using localStorage
-    └── main.js         ← Empty (no longer needed)
-
+    ├── cart.js         ← addToCart() using localStorage
+    └── main.js
 ```
 
----
+## Features
 
-## ✅ Fonctionnalités incluses
+- Home page with hero section
+- Catalogue with 8 perfumes
+- Real-time search
+- Filters by type (Oriental, Floral, Woody, Fresh)
+- Product detail page
+- Sliding cart (add, remove, quantities)
+- Checkout with simulated card payment form
+- Order confirmation page
+- Login / session management
+- Mobile responsive
+- Dark/Light theme toggle
+- Multilingual support (EN/FR)
 
-- 🏠 Page d'accueil avec hero section
-- 🛍️ Catalogue avec 8 parfums
-- 🔍 Recherche en temps réel
-- 🏷️ Filtres par type (Oriental, Floral, Boisé, Frais)
-- 📄 Page détail produit
-- 🛒 Panier coulissant (ajout, suppression, quantités)
-- 💳 Checkout avec formulaire de carte bancaire simulé
-- ✅ Page de confirmation de commande
-- 📱 Responsive mobile
+## Design
 
----
+- Theme: Luxury / Dark gold
+- Fonts: Cormorant Garamond + DM Sans
+- Payment: Simulated (no real payment processing)
 
-## 🎨 Design
+## Deployment
 
-- Thème : Luxe / Dark gold
-- Fonts : Cormorant Garamond + DM Sans
-- Paiement : Simulé (pas de vrai paiement)
+Hosted on [Vercel](https://vercel.com).
 
----
-
-## 📦 Déploiement gratuit
-
-1. Créer un compte sur https://vercel.com
-2. Uploader le dossier
-3. Le site est en ligne en 1 minute !
-
----
-
+To redeploy after changes:
+```bash
+vercel --prod
+```
