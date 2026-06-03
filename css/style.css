@@ -225,7 +225,8 @@ body.light footer {
 }
 
 .btn-primary {
-  background: var(--gold); color: #FFF;
+  background: var(--gold); /* color: #FFF */;
+  
   border: none; padding: 14px 32px; border-radius: 40px;
   font-family: var(--font-body); font-size: 0.9rem; font-weight: 500;
   cursor: pointer; letter-spacing: 0.05em;

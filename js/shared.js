@@ -25,6 +25,13 @@ const translations = {
     ourFragrances: 'Nos', allCollection: 'Toute la',
     searchPlaceholder: 'Rechercher un parfum...',
     mobileSearchPlaceholder: 'Rechercher un parfum...',
+    filterAll: 'Tous', filterOriental: 'Oriental', filterFloral: 'Floral', filterWoody: 'Boisé', filterFresh: 'Frais',
+    tagNew: 'Nouveau', tagExclusive: 'Exclusif', tagBestseller: 'Bestseller', tagPremium: 'Premium',
+    scentOriental: 'Oriental', scentFloral: 'Floral', scentWoody: 'Boisé', scentFresh: 'Frais',
+    notesLabel: 'Notes olfactives',
+    addToCart: 'Ajouter au panier', continueBtn: 'Continuer',
+    backBtn: 'Retour',
+    addBtn: 'Ajouter',
   },
   en: {
     cart: 'Cart', myCart: 'My Cart', rights: 'All rights reserved.',
@@ -35,8 +42,21 @@ const translations = {
     ourFragrances: 'Our', allCollection: 'Full',
     searchPlaceholder: 'Search a perfume...',
     mobileSearchPlaceholder: 'Search a perfume...',
+    filterAll: 'All', filterOriental: 'Oriental', filterFloral: 'Floral', filterWoody: 'Woody', filterFresh: 'Fresh',
+    tagNew: 'New', tagExclusive: 'Exclusive', tagBestseller: 'Bestseller', tagPremium: 'Premium',
+    scentOriental: 'Oriental', scentFloral: 'Floral', scentWoody: 'Woody', scentFresh: 'Fresh',
+    notesLabel: 'Olfactory Notes',
+    addToCart: 'Add to cart', continueBtn: 'Continue',
+    backBtn: 'Back',
+    addBtn: 'Add',
   }
 };
+
+// Maps scent data value → i18n key (data values are always French)
+const scentI18nKey = { 'Oriental': 'scentOriental', 'Floral': 'scentFloral', 'Boisé': 'scentWoody', 'Frais': 'scentFresh' };
+const tagI18nKey   = { 'Nouveau': 'tagNew', 'Exclusif': 'tagExclusive', 'Bestseller': 'tagBestseller', 'Premium': 'tagPremium' };
+
+function t(key) { return (translations[currentLang] || translations.fr)[key] || key; }
 
 let currentLang = localStorage.getItem('lang') || 'fr';
 
@@ -59,6 +79,8 @@ function toggleLang() {
   currentLang = currentLang === 'fr' ? 'en' : 'fr';
   localStorage.setItem('lang', currentLang);
   applyLang(currentLang);
+  // Let pages hook in to re-render dynamic content
+  if (typeof onLangChange === 'function') onLangChange(currentLang);
 }
 
 // ===== TOAST =====
@@ -168,7 +190,11 @@ function cartChangeQty(id, delta) {
 
 function goToCheckout() {
   closeCart();
-  window.location.href = 'checkout.html';
+  if (!localStorage.getItem('sora_session')) {
+    window.location.href = 'login.html?redirect=checkout.html';
+  } else {
+    window.location.href = 'checkout.html';
+  }
 }
 
 // ===== INIT =====

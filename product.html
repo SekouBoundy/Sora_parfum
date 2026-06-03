@@ -55,6 +55,10 @@
 
     document.title = `${p.name} — Sora Parfum`;
 
+    renderDetail(p);
+  });
+
+  function renderDetail(p) {
     document.getElementById('detail-grid').innerHTML = `
       <div class="detail-visual" id="detail-visual"
         style="background: radial-gradient(circle at 40% 40%, ${p.color}40, ${p.color}08)">
@@ -63,29 +67,36 @@
           : `<span style="font-size:9rem;color:${p.color}">${p.emoji}</span>`}
       </div>
       <div class="detail-info">
-        ${p.tag ? `<span class="detail-tag" style="background:${getTagColor(p.tag)};display:inline-block">${p.tag}</span>` : ''}
+        ${p.tag ? `<span class="detail-tag" style="background:${getTagColor(p.tag)};display:inline-block">${t(tagI18nKey[p.tag] || p.tag)}</span>` : ''}
         <p id="detail-brand">${p.brand}</p>
         <h1>${p.name}</h1>
         <div class="detail-meta">
-          <span class="scent-badge">${p.scent}</span>
+          <span class="scent-badge">${t(scentI18nKey[p.scent] || p.scent)}</span>
           <span class="product-ml">${p.ml}</span>
         </div>
         <p class="detail-description">${p.description}</p>
         <div>
-          <p class="notes-label">Notes olfactives</p>
+          <p class="notes-label">${t('notesLabel')}</p>
           <p class="notes-value">${p.notes}</p>
         </div>
         <p class="detail-price">€${p.price}</p>
         <div class="detail-actions">
           <button class="btn-primary" id="add-btn" onclick="addToCart(${p.id}); openCart()">
-            <i data-lucide="shopping-bag"></i> Ajouter au panier
+            <i data-lucide="shopping-bag"></i> ${t('addToCart')}
           </button>
-          <button class="btn-ghost" onclick="window.location.href='catalog.html'">Continuer</button>
+          <button class="btn-ghost" onclick="window.location.href='catalog.html'">${t('continueBtn')}</button>
         </div>
       </div>
     `;
     lucide.createIcons();
-  });
+  }
+
+  function onLangChange() {
+    const params = new URLSearchParams(window.location.search);
+    const id = parseInt(params.get('id'));
+    const p = products.find(pr => pr.id === id);
+    if (p) renderDetail(p);
+  }
 </script>
 </body>
 </html>

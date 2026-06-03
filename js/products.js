@@ -15,8 +15,8 @@ const products = [
   },
   {
     id: 2,
-    name: "Rose Céleste",
-    brand: "Fleur de Paris",
+    name: "ROSE IVOIRE DE CARON",
+    brand: "CARON",
     price: 74,
     scent: "Floral",
     notes: "Rose, Jasmin, Vanille",
@@ -25,7 +25,7 @@ const products = [
     description: "La quintessence de la féminité. Une rose enveloppée de jasmin délicat et de vanille crémeuse.",
     color: "#C2185B",
     emoji: "🌹",
-    image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400&h=400&fit=crop&q=80"
+    image: "https://parisparfums.fr/6821-large_default/parfum-rose-ivoire-de-caron.jpg"
   },
   {
     id: 3,
@@ -43,8 +43,8 @@ const products = [
   },
   {
     id: 4,
-    name: "Agrumes Royaux",
-    brand: "Soleil d'Or",
+    name: "GABRIELLE CHANEL",
+    brand: "CHANEL",
     price: 58,
     scent: "Frais",
     notes: "Bergamote, Citron, Néroli",
@@ -86,7 +86,7 @@ const products = [
   {
     id: 7,
     name: "Velours Noir",
-    brand: "Luxe Essence",
+    brand: "Yves Saint Laurent",
     price: 135,
     scent: "Oriental",
     notes: "Cuir, Fumée, Ambre noir",
@@ -95,7 +95,7 @@ const products = [
     description: "Pour les âmes audacieuses. Un cuir sophistiqué enveloppé d'ambre sombre et d'une légère touche fumée.",
     color: "#1C1C1C",
     emoji: "🔥",
-    image: "https://images.unsplash.com/photo-1590736704728-f4730bb30770?w=400&h=400&fit=crop&q=80"
+    image: "https://fimgs.net/mdimg/perfume-thumbs/dark-375x500.40932.2x.avif"
   },
   {
     id: 8,

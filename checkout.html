@@ -180,7 +180,18 @@
     }, 2500);
   }
 
-  document.addEventListener('DOMContentLoaded', renderSummary);
+  function prefillFromSession() {
+    const session = JSON.parse(localStorage.getItem('sora_session') || 'null');
+    if (!session) return;
+    if (session.name && !session.guest) {
+      document.getElementById('client-name').value = session.name;
+    }
+    if (session.email) {
+      document.getElementById('client-email').value = session.email;
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => { renderSummary(); prefillFromSession(); });
 </script>
 </body>
 </html>
