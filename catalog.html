@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -31,7 +31,7 @@
 <footer>
   <div class="footer-logo">Sora Parfum</div>
   <p>© 2026 Sora Parfum. <span data-i18n="rights">Tous droits réservés.</span></p>
-  <p><i data-lucide="lock"></i> Paiement 100% sécurisé</p>
+  <p><i data-lucide="lock"></i> 100% secure payment</p>
 </footer>
 
 <script src="js/products.js"></script>
@@ -62,7 +62,7 @@
     if (filtered.length === 0) {
       grid.innerHTML = '';
       noResults.style.display = 'block';
-      noResults.innerHTML = `Aucun résultat pour "<strong>${searchQuery || filter}</strong>"`;
+      noResults.innerHTML = `${t('noResults')} "<strong>${searchQuery || filter}</strong>"`;
       lucide.createIcons();
       return;
     }
@@ -84,7 +84,7 @@
             <span class="scent-badge">${t(scentI18nKey[p.scent] || p.scent)}</span>
             <span class="product-ml">${p.ml}</span>
           </div>
-          <p class="product-notes">${p.notes}</p>
+          <p class="product-notes">${currentLang === 'fr' ? p.notesFr : p.notes}</p>
           <div class="product-footer">
             <span class="product-price">€${p.price}</span>
             <button class="add-btn" onclick="event.stopPropagation(); addToCart(${p.id})">

@@ -32,6 +32,12 @@ const translations = {
     addToCart: 'Ajouter au panier', continueBtn: 'Continuer',
     backBtn: 'Retour',
     addBtn: 'Ajouter',
+    emptyCart: 'Votre panier est vide',
+    addedToCart: 'ajouté au panier',
+    checkoutBtn: 'Passer la commande →',
+    noResults: 'Aucun résultat pour',
+    productNotFound: 'Produit introuvable.',
+    backToCollection: 'Retour à la collection',
   },
   en: {
     cart: 'Cart', myCart: 'My Cart', rights: 'All rights reserved.',
@@ -49,6 +55,12 @@ const translations = {
     addToCart: 'Add to cart', continueBtn: 'Continue',
     backBtn: 'Back',
     addBtn: 'Add',
+    emptyCart: 'Your cart is empty',
+    addedToCart: 'added to cart',
+    checkoutBtn: 'Checkout →',
+    noResults: 'No results for',
+    productNotFound: 'Product not found.',
+    backToCollection: 'Back to collection',
   }
 };
 
@@ -58,7 +70,7 @@ const tagI18nKey   = { 'Nouveau': 'tagNew', 'Exclusif': 'tagExclusive', 'Bestsel
 
 function t(key) { return (translations[currentLang] || translations.fr)[key] || key; }
 
-let currentLang = localStorage.getItem('lang') || 'fr';
+let currentLang = localStorage.getItem('lang') || 'en';
 
 function applyLang(lang) {
   const t = translations[lang];
@@ -126,7 +138,7 @@ function renderCartPanel() {
   if (!container) return;
 
   if (cart.length === 0) {
-    container.innerHTML = `<div class="cart-empty"><i data-lucide="shopping-bag"></i><p data-i18n="emptyCart">Votre panier est vide</p></div>`;
+    container.innerHTML = `<div class="cart-empty"><i data-lucide="shopping-bag"></i><p>${t('emptyCart')}</p></div>`;
     if (totalSection) totalSection.style.display = 'none';
     lucide.createIcons();
     return;
@@ -166,7 +178,7 @@ function cartAddItem(product) {
   else cart.push({ ...product, qty: 1 });
   localStorage.setItem('cart', JSON.stringify(cart));
   refreshCartBadge();
-  showToast(`${product.name} ajouté au panier`);
+  showToast(`${product.name} ${t('addedToCart')}`);
 }
 
 function cartRemove(id) {

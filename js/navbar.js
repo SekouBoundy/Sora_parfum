@@ -10,14 +10,14 @@
       <div class="nav-actions">
         <div class="nav-search">
           <i data-lucide="search" class="search-icon"></i>
-          <input type="text" id="search-input" placeholder="Rechercher un parfum..." />
+          <input type="text" id="search-input" placeholder="Search a perfume..." />
         </div>
         <button class="toggle-btn" id="lang-toggle" onclick="toggleLang()" title="Switch language">FR</button>
         <button class="toggle-btn" id="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
           <i data-lucide="sun"></i>
         </button>
         <button class="cart-btn" onclick="openCart()">
-          <i data-lucide="shopping-bag"></i> <span data-i18n="cart">Panier</span>
+          <i data-lucide="shopping-bag"></i> <span data-i18n="cart">Cart</span>
           <span class="cart-badge">0</span>
         </button>
       </div>
@@ -25,7 +25,7 @@
 
     <div class="mobile-search-bar">
       <i data-lucide="search"></i>
-      <input type="text" id="search-input-mobile" placeholder="Rechercher un parfum..." />
+      <input type="text" id="search-input-mobile" placeholder="Search a perfume..." />
     </div>
 
     <div id="toast"></div>
@@ -33,7 +33,7 @@
 
     <div class="cart-panel" id="cart-panel">
       <div class="cart-header">
-        <h2 data-i18n="myCart">Mon Panier</h2>
+        <h2 data-i18n="myCart">My Cart</h2>
         <button class="close-btn" onclick="closeCart()"><i data-lucide="x"></i></button>
       </div>
       <div id="cart-items"></div>
@@ -42,8 +42,8 @@
           <span class="total-label">Total</span>
           <span id="cart-total">€0.00</span>
         </div>
-        <button class="btn-primary" style="width:100%" onclick="goToCheckout()">
-          Passer la commande →
+        <button class="btn-primary" style="width:100%" onclick="goToCheckout()" data-i18n="checkoutBtn">
+          Checkout →
         </button>
       </div>
     </div>

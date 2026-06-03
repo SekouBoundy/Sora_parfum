@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Commande — Sora Parfum</title>
+  <title>Checkout — Sora Parfum</title>
   <link rel="stylesheet" href="css/style.css" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
@@ -13,57 +13,57 @@
 
 <div class="checkout-page">
   <button class="back-btn" onclick="history.back()">
-    <i data-lucide="arrow-left"></i> Retour au panier
+    <i data-lucide="arrow-left"></i> Back to cart
   </button>
-  <h1>Finaliser la <em style="font-style:italic;color:var(--gold)">commande</em></h1>
-  <p class="checkout-sub">Vos informations sont sécurisées et cryptées.</p>
+  <h1>Complete your <em style="font-style:italic;color:var(--gold)">order</em></h1>
+  <p class="checkout-sub">Your information is secure and encrypted.</p>
 
   <div class="checkout-grid">
     <!-- LEFT: FORMS -->
     <div>
       <div class="form-section">
-        <h3>Vos coordonnées</h3>
+        <h3>Your details</h3>
         <div class="form-group">
-          <label>Nom complet</label>
-          <input type="text" id="client-name" placeholder="Jean Dupont" />
+          <label>Full name</label>
+          <input type="text" id="client-name" placeholder="John Smith" />
         </div>
         <div class="form-group">
           <label>Email</label>
-          <input type="email" id="client-email" placeholder="jean@email.com" />
+          <input type="email" id="client-email" placeholder="john@email.com" />
         </div>
         <div class="form-group">
-          <label>Adresse de livraison</label>
-          <input type="text" id="client-address" placeholder="123 Rue de la Paix, Paris" />
+          <label>Shipping address</label>
+          <input type="text" id="client-address" placeholder="123 Main St, New York" />
         </div>
       </div>
 
       <div class="form-section" style="margin-top:28px">
-        <h3><i data-lucide="credit-card"></i> Paiement par carte</h3>
+        <h3><i data-lucide="credit-card"></i> Card payment</h3>
 
         <div class="card-preview">
           <div class="card-chip"><i data-lucide="credit-card"></i></div>
           <div class="card-number-display" id="preview-number">•••• •••• •••• ••••</div>
           <div class="card-meta">
-            <span id="preview-name">VOTRE NOM</span>
-            <span id="preview-expiry">MM/AA</span>
+            <span id="preview-name">YOUR NAME</span>
+            <span id="preview-expiry">MM/YY</span>
           </div>
         </div>
 
         <div class="form-group">
-          <label>Nom sur la carte</label>
-          <input type="text" id="card-name" placeholder="JEAN DUPONT"
-            oninput="document.getElementById('preview-name').textContent = this.value.toUpperCase() || 'VOTRE NOM'" />
+          <label>Name on card</label>
+          <input type="text" id="card-name" placeholder="JOHN SMITH"
+            oninput="document.getElementById('preview-name').textContent = this.value.toUpperCase() || 'YOUR NAME'" />
         </div>
         <div class="form-group">
-          <label>Numéro de carte</label>
+          <label>Card number</label>
           <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19"
             oninput="formatCardNumber(this); document.getElementById('preview-number').textContent = this.value || '•••• •••• •••• ••••'" />
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label>Date d'expiration</label>
-            <input type="text" id="card-expiry" placeholder="MM/AA" maxlength="5"
-              oninput="formatExpiry(this); document.getElementById('preview-expiry').textContent = this.value || 'MM/AA'" />
+            <label>Expiry date</label>
+            <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5"
+              oninput="formatExpiry(this); document.getElementById('preview-expiry').textContent = this.value || 'MM/YY'" />
           </div>
           <div class="form-group">
             <label>CVV</label>
@@ -76,25 +76,25 @@
 
         <div class="pay-action">
           <button class="btn-primary" id="pay-btn" onclick="processPayment()">
-            <i data-lucide="lock"></i> Payer maintenant
+            <i data-lucide="lock"></i> Pay now
           </button>
         </div>
         <div class="secure-badge">
-          <i data-lucide="shield-check"></i> Cryptage SSL 256-bit — Visa, Mastercard, Amex acceptés
+          <i data-lucide="shield-check"></i> 256-bit SSL encryption — Visa, Mastercard, Amex accepted
         </div>
       </div>
     </div>
 
     <!-- RIGHT: ORDER SUMMARY -->
     <div class="order-summary">
-      <h3>Récapitulatif</h3>
+      <h3>Order summary</h3>
       <div id="checkout-items"></div>
       <div class="summary-total">
         <span>Total</span>
         <span id="checkout-total">€0.00</span>
       </div>
       <div class="secure-badge" style="margin-top:20px">
-        <i data-lucide="package-check"></i> Livraison gratuite · Retour 30 jours
+        <i data-lucide="package-check"></i> Free shipping · 30-day returns
       </div>
     </div>
   </div>
@@ -103,7 +103,7 @@
 <footer>
   <div class="footer-logo">Sora Parfum</div>
   <p>© 2026 Sora Parfum. <span data-i18n="rights">Tous droits réservés.</span></p>
-  <p><i data-lucide="lock"></i> Paiement 100% sécurisé</p>
+  <p><i data-lucide="lock"></i> 100% secure payment</p>
 </footer>
 
 <script src="js/shared.js"></script>
@@ -164,13 +164,13 @@
     const clientName = document.getElementById('client-name').value.trim();
 
     if (!clientName || !email || !name || number.length < 16 || expiry.length < 5 || cvv.length < 3) {
-      showError('Veuillez remplir tous les champs correctement.');
+      showError('Please fill in all fields correctly.');
       return;
     }
 
     const btn = document.getElementById('pay-btn');
     btn.disabled = true;
-    btn.innerHTML = `<span class="spinner"></span> Traitement en cours...`;
+    btn.innerHTML = `<span class="spinner"></span> Processing...`;
 
     setTimeout(() => {
       const ref = generateRef();

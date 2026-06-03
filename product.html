@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Produit — Sora Parfum</title>
+  <title>Product — Sora Parfum</title>
   <link rel="stylesheet" href="css/style.css" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
@@ -13,7 +13,7 @@
 
 <div class="detail-page">
   <button class="back-btn" onclick="history.back()">
-    <i data-lucide="arrow-left"></i> Retour
+    <i data-lucide="arrow-left"></i> <span data-i18n="backBtn">Back</span>
   </button>
   <div class="detail-grid" id="detail-grid">
     <!-- filled by JS -->
@@ -24,7 +24,7 @@
 <footer>
   <div class="footer-logo">Sora Parfum</div>
   <p>© 2026 Sora Parfum. <span data-i18n="rights">Tous droits réservés.</span></p>
-  <p><i data-lucide="lock"></i> Paiement 100% sécurisé</p>
+  <p><i data-lucide="lock"></i> 100% secure payment</p>
 </footer>
 
 <script src="js/products.js"></script>
@@ -44,9 +44,9 @@
     if (!p) {
       document.getElementById('detail-grid').innerHTML = `
         <div style="padding:60px;text-align:center;color:var(--muted)">
-          <p>Produit introuvable.</p>
+          <p>${t('productNotFound')}</p>
           <button class="btn-primary" style="margin-top:20px" onclick="window.location.href='catalog.html'">
-            Retour à la collection
+            ${t('backToCollection')}
           </button>
         </div>`;
       lucide.createIcons();
@@ -74,10 +74,10 @@
           <span class="scent-badge">${t(scentI18nKey[p.scent] || p.scent)}</span>
           <span class="product-ml">${p.ml}</span>
         </div>
-        <p class="detail-description">${p.description}</p>
+        <p class="detail-description">${currentLang === 'fr' ? p.descriptionFr : p.description}</p>
         <div>
           <p class="notes-label">${t('notesLabel')}</p>
-          <p class="notes-value">${p.notes}</p>
+          <p class="notes-value">${currentLang === 'fr' ? p.notesFr : p.notes}</p>
         </div>
         <p class="detail-price">€${p.price}</p>
         <div class="detail-actions">

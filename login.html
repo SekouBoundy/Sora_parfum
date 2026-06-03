@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Connexion — Sora Parfum</title>
+  <title>Login — Sora Parfum</title>
   <link rel="stylesheet" href="css/style.css" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <style>
@@ -102,12 +102,12 @@
 
 <div class="login-page">
   <div class="login-card">
-    <h1>Bienvenue</h1>
-    <p class="sub">Connectez-vous pour finaliser votre commande.</p>
+    <h1>Welcome</h1>
+    <p class="sub">Sign in to complete your order.</p>
 
     <div class="login-tabs">
-      <button class="login-tab active" id="tab-login" onclick="switchTab('login')">Connexion</button>
-      <button class="login-tab" id="tab-register" onclick="switchTab('register')">Créer un compte</button>
+      <button class="login-tab active" id="tab-login" onclick="switchTab('login')">Sign in</button>
+      <button class="login-tab" id="tab-register" onclick="switchTab('register')">Create account</button>
     </div>
 
     <!-- LOGIN FORM -->
@@ -118,16 +118,16 @@
         <input type="email" id="login-email" placeholder="jean@email.com" />
       </div>
       <div class="form-group">
-        <label>Mot de passe</label>
+        <label>Password</label>
         <input type="password" id="login-password" placeholder="••••••••" />
       </div>
-      <div class="forgot-link"><a href="#">Mot de passe oublié ?</a></div>
+      <div class="forgot-link"><a href="#">Forgot password?</a></div>
       <button class="btn-primary" style="width:100%" onclick="doLogin()">
-        <i data-lucide="log-in"></i> Se connecter
+        <i data-lucide="log-in"></i> Sign in
       </button>
-      <div class="divider">ou continuer sans compte</div>
+      <div class="divider">or continue without account</div>
       <button class="btn-ghost" style="width:100%;text-align:center" onclick="continueAsGuest()">
-        Continuer en tant qu'invité
+        Continue as guest
       </button>
     </div>
 
@@ -135,23 +135,23 @@
     <div id="form-register" style="display:none">
       <div id="register-error" class="login-error"></div>
       <div class="form-group">
-        <label>Nom complet</label>
-        <input type="text" id="reg-name" placeholder="Jean Dupont" />
+        <label>Full name</label>
+        <input type="text" id="reg-name" placeholder="John Smith" />
       </div>
       <div class="form-group">
         <label>Email</label>
-        <input type="email" id="reg-email" placeholder="jean@email.com" />
+        <input type="email" id="reg-email" placeholder="john@email.com" />
       </div>
       <div class="form-group">
-        <label>Mot de passe</label>
+        <label>Password</label>
         <input type="password" id="reg-password" placeholder="••••••••" />
       </div>
       <button class="btn-primary" style="width:100%" onclick="doRegister()">
-        <i data-lucide="user-plus"></i> Créer mon compte
+        <i data-lucide="user-plus"></i> Create my account
       </button>
-      <div class="divider">ou continuer sans compte</div>
+      <div class="divider">or continue without account</div>
       <button class="btn-ghost" style="width:100%;text-align:center" onclick="continueAsGuest()">
-        Continuer en tant qu'invité
+        Continue as guest
       </button>
     </div>
   </div>
@@ -159,7 +159,7 @@
 
 <footer>
   <div class="footer-logo">Sora Parfum</div>
-  <p>© 2026 Sora Parfum. Tous droits réservés.</p>
+  <p>© 2026 Sora Parfum. All rights reserved.</p>
 </footer>
 
 <script src="js/shared.js"></script>
@@ -182,11 +182,11 @@
   function doLogin() {
     const email = document.getElementById('login-email').value.trim();
     const password = document.getElementById('login-password').value;
-    if (!email || !password) { showError('login-error', 'Veuillez remplir tous les champs.'); return; }
+    if (!email || !password) { showError('login-error', 'Please fill in all fields.'); return; }
 
     const users = JSON.parse(localStorage.getItem('sora_users') || '[]');
     const user = users.find(u => u.email === email && u.password === password);
-    if (!user) { showError('login-error', 'Email ou mot de passe incorrect.'); return; }
+    if (!user) { showError('login-error', 'Incorrect email or password.'); return; }
 
     localStorage.setItem('sora_session', JSON.stringify({ name: user.name, email: user.email }));
     window.location.href = redirect;
@@ -196,11 +196,11 @@
     const name = document.getElementById('reg-name').value.trim();
     const email = document.getElementById('reg-email').value.trim();
     const password = document.getElementById('reg-password').value;
-    if (!name || !email || !password) { showError('register-error', 'Veuillez remplir tous les champs.'); return; }
-    if (password.length < 6) { showError('register-error', 'Le mot de passe doit contenir au moins 6 caractères.'); return; }
+    if (!name || !email || !password) { showError('register-error', 'Please fill in all fields.'); return; }
+    if (password.length < 6) { showError('register-error', 'Password must be at least 6 characters.'); return; }
 
     const users = JSON.parse(localStorage.getItem('sora_users') || '[]');
-    if (users.find(u => u.email === email)) { showError('register-error', 'Un compte existe déjà avec cet email.'); return; }
+    if (users.find(u => u.email === email)) { showError('register-error', 'An account already exists with this email.'); return; }
 
     users.push({ name, email, password });
     localStorage.setItem('sora_users', JSON.stringify(users));
@@ -209,7 +209,7 @@
   }
 
   function continueAsGuest() {
-    localStorage.setItem('sora_session', JSON.stringify({ name: 'Invité', email: '', guest: true }));
+    localStorage.setItem('sora_session', JSON.stringify({ name: 'Guest', email: '', guest: true }));
     window.location.href = redirect;
   }
 
