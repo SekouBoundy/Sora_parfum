@@ -119,7 +119,7 @@ nav {
 
 /* ===== LIGHT MODE ===== */
 body.light {
-  --bg: #f5f0e8;
+  --bg: #ffffff;
   --surface: #fdfaf5;
   --surface2: #ede8df;
   --border: #d8d0c4;
@@ -140,11 +140,11 @@ body.light .product-card {
   box-shadow: 0 2px 16px rgba(0,0,0,0.06), 0 0 0 1px var(--border);
 }
 
-body.light .hero-image-badge {
+/* body.light .hero-image-badge {
   background: rgba(245,240,232,0.75);
   border-color: rgba(160,120,40,0.3);
   color: var(--gold);
-}
+} */
 
 body.light .hero::before {
   background: radial-gradient(circle, #a0782818 0%, transparent 70%);
@@ -162,7 +162,7 @@ body.light .cart-panel {
 }
 
 body.light .filter-btn {
-  background: var(--surface2);
+  /* background: var(--surface2); */
   border-color: var(--border);
 }
 
@@ -341,7 +341,8 @@ body.light footer {
 .filters { display: flex; gap: 8px; flex-wrap: wrap; }
 
 .filter-btn {
-  background: var(--surface2); border: 1px solid var(--border);
+  background: var(--surface2); 
+  border: 1px solid var(--border);
   color: var(--muted); padding: 8px 20px; border-radius: 40px;
   font-family: var(--font-body); font-size: 0.82rem; cursor: pointer;
   transition: all 0.2s;
