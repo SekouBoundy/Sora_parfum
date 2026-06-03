@@ -115,11 +115,11 @@
       <div id="login-error" class="login-error"></div>
       <div class="form-group">
         <label>Email</label>
-        <input type="email" id="login-email" placeholder="jean@email.com" />
+        <input type="email" id="login-email" placeholder="jean@email.com" value="soraparfum@gmail.com" />
       </div>
       <div class="form-group">
         <label>Password</label>
-        <input type="password" id="login-password" placeholder="••••••••" />
+        <input type="password" id="login-password" placeholder="••••••••" value="Sora1234" />
       </div>
       <div class="forgot-link"><a href="#">Forgot password?</a></div>
       <button class="btn-primary" style="width:100%" onclick="doLogin()">
@@ -184,8 +184,11 @@
     const password = document.getElementById('login-password').value;
     if (!email || !password) { showError('login-error', 'Please fill in all fields.'); return; }
 
+    const ADMIN = { name: 'Sora Parfum', email: 'soraparfum@gmail.com', password: 'Sora1234' };
     const users = JSON.parse(localStorage.getItem('sora_users') || '[]');
-    const user = users.find(u => u.email === email && u.password === password);
+    const user = (email === ADMIN.email && password === ADMIN.password)
+      ? ADMIN
+      : users.find(u => u.email === email && u.password === password);
     if (!user) { showError('login-error', 'Incorrect email or password.'); return; }
 
     localStorage.setItem('sora_session', JSON.stringify({ name: user.name, email: user.email }));
